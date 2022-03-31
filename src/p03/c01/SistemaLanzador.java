@@ -21,6 +21,7 @@ public class SistemaLanzador {
 			new Thread (salidas).start();
 			
 			
+			
 		}
 	}	
 }
