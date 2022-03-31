@@ -18,7 +18,10 @@ public class Parque implements IParque{
 
 
 	@Override
-	public void entrarAlParque(String puerta){		// TODO
+	public void entrarAlParque(String puerta){		
+		
+		// TODO
+		comprobarAntesDeEntrar();
 		
 		// Si no hay entradas por esa puerta, inicializamos
 		if (contadoresPersonasPuerta.get(puerta) == null){
@@ -26,6 +29,9 @@ public class Parque implements IParque{
 		}
 		
 		// TODO
+		int contadorDePuerta = contadoresPersonasPuerta.get(puerta);
+		contadorDePuerta+=1;
+		contadoresPersonasPuerta.put(puerta, contadorDePuerta);
 				
 		
 		// Aumentamos el contador total y el individual
@@ -36,7 +42,8 @@ public class Parque implements IParque{
 		imprimirInfo(puerta, "Entrada");
 		
 		// TODO
-		
+		// Comrpobar invariante
+		checkInvariante();
 		
 		// TODO
 		
@@ -48,6 +55,7 @@ public class Parque implements IParque{
 	@Override
 	public void salirDelParque(String puerta) {
 		// TODO Auto-generated method stub
+		
 		
 	}
 	
