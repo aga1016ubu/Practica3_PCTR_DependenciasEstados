@@ -20,7 +20,7 @@ public class Parque implements IParque{
 	@Override
 	public void entrarAlParque(String puerta){		
 		
-		// TODO
+		// Comprobar la precondción de que el parque no esté lleno
 		comprobarAntesDeEntrar();
 		
 		// Si no hay entradas por esa puerta, inicializamos
@@ -28,7 +28,7 @@ public class Parque implements IParque{
 			contadoresPersonasPuerta.put(puerta, 0);
 		}
 		
-		// TODO
+		// Aumentamos el contador de la puera por la que estamos entrando
 		int contadorDePuerta = contadoresPersonasPuerta.get(puerta);
 		contadorDePuerta+=1;
 		contadoresPersonasPuerta.put(puerta, contadorDePuerta);
@@ -41,17 +41,15 @@ public class Parque implements IParque{
 		// Imprimimos el estado del parque
 		imprimirInfo(puerta, "Entrada");
 		
-		// TODO
 		// Comrpobar invariante
 		checkInvariante();
 		
-		// TODO
-		
+		// Avisamos al resto de hilos que están a la espera de que hemos liberado el recurso
+		notifyAll();		
 	}
 	
-	// 
-	// TODO MÃ©todo salirDelParque
-	//
+	
+	
 	@Override
 	public void salirDelParque(String puerta) {
 		// TODO Auto-generated method stub
@@ -87,16 +85,28 @@ public class Parque implements IParque{
 
 	}
 
-	protected void comprobarAntesDeEntrar(){	// TODO
-		//
-		// TODO
-		//
+	protected void comprobarAntesDeEntrar(){
+		//Mantenemos en espera la operación de entrar si el parque está lleno.
+		if(contadorPersonasTotales == aforoMaximo) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
-	protected void comprobarAntesDeSalir(){		// TODO
-		//
-		// TODO
-		//
+	protected void comprobarAntesDeSalir(){	
+		//Mantenemos en espera la operación de salir si el parque está vacío.
+		if(contadorPersonasTotales == 0) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 
