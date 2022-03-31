@@ -18,7 +18,7 @@ public class Parque implements IParque{
 
 
 	@Override
-	public void entrarAlParque(String puerta){		
+	public synchronized void entrarAlParque (String puerta){		
 		
 		// Comprobar la precondción de que el parque no esté lleno
 		comprobarAntesDeEntrar();
@@ -45,7 +45,7 @@ public class Parque implements IParque{
 	
 	
 	@Override
-	public void salirDelParque(String puerta) {
+	public synchronized void salirDelParque(String puerta) {
 		// Comprobar la precondción de que el parque no esté lleno
 		comprobarAntesDeSalir();
 		
