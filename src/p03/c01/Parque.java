@@ -28,12 +28,6 @@ public class Parque implements IParque{
 			contadoresPersonasPuerta.put(puerta, 0);
 		}
 		
-		// Aumentamos el contador de la puera por la que estamos entrando
-		int contadorDePuerta = contadoresPersonasPuerta.get(puerta);
-		contadorDePuerta+=1;
-		contadoresPersonasPuerta.put(puerta, contadorDePuerta);
-				
-		
 		// Aumentamos el contador total y el individual
 		contadorPersonasTotales++;		
 		contadoresPersonasPuerta.put(puerta, contadoresPersonasPuerta.get(puerta)+1);
@@ -52,7 +46,26 @@ public class Parque implements IParque{
 	
 	@Override
 	public void salirDelParque(String puerta) {
-		// TODO Auto-generated method stub
+		// Comprobar la precondción de que el parque no esté lleno
+		comprobarAntesDeSalir();
+		
+		// Si no hay salidas por esa puerta, inicializamos
+		if (contadoresPersonasPuerta.get(puerta) == null){
+			contadoresPersonasPuerta.put(puerta, 0);
+		}
+				
+		// Aumentamos el contador total y el individual
+		contadorPersonasTotales--;		
+		contadoresPersonasPuerta.put(puerta, contadoresPersonasPuerta.get(puerta)-1);
+		
+		// Imprimimos el estado del parque
+		imprimirInfo(puerta, "Salida");
+		
+		// Comrpobar invariante
+		checkInvariante();
+		
+		// Avisamos al resto de hilos que están a la espera de que hemos liberado el recurso
+		notifyAll();
 		
 		
 	}
