@@ -100,7 +100,7 @@ public class Parque implements IParque{
 
 	protected void comprobarAntesDeEntrar(){
 		//Mantenemos en espera la operación de entrar si el parque está lleno.
-		if(contadorPersonasTotales == aforoMaximo) {
+		while(contadorPersonasTotales == aforoMaximo) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -112,7 +112,7 @@ public class Parque implements IParque{
 
 	protected void comprobarAntesDeSalir(){	
 		//Mantenemos en espera la operación de salir si el parque está vacío.
-		if(contadorPersonasTotales == 0) {
+		while(contadorPersonasTotales == 0) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
